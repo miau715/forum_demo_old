@@ -3,6 +3,10 @@ class BoardsController < ApplicationController
     @boards = Board.all
   end
   
+  def show
+    @board = Board.find(params[:id])
+  end
+  
   def new
     @board = Board.new
   end
@@ -11,11 +15,7 @@ class BoardsController < ApplicationController
     @board = Board.new(params[:board])
     @board.save
   end
-  
-  def show
-    @board = Board.find(params[:id])
-  end
-  
+
   def edit
     @board = Board.find(params[:id])
   end
