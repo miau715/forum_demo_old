@@ -3,7 +3,7 @@ class BoardsController < ApplicationController
     @boards = Board.all
     
     respond_to do |format|
-      format.html # index.html.erb
+      format.html 
       format.xml  { render :xml => @boards }
     end
   end
@@ -14,7 +14,7 @@ class BoardsController < ApplicationController
     @posts = Post.all
     
     respond_to do |format|
-      format.html # index.html.erb
+      format.html 
       format.xml  { render :xml => @board }
     end
   end
@@ -23,7 +23,7 @@ class BoardsController < ApplicationController
     @board = Board.new
     
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.xml  { render :xml => @board }
     end
   end

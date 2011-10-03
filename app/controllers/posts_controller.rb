@@ -9,7 +9,7 @@ class PostsController < ApplicationController
     @post = @board.posts.find(params[:id])
     
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.xml  { render :xml => @post }
     end
   end
@@ -18,7 +18,7 @@ class PostsController < ApplicationController
     @post = @board.posts.build
     
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.xml  { render :xml => @post }
     end
   end
