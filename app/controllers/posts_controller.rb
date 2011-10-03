@@ -1,15 +1,12 @@
 class PostsController < ApplicationController
-  def index
-    @posts = Post.all
+  before_filter  :find_board
     
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @posts }
-    end
+  def index
+    redirect_to board_path(@board)
   end
   
   def show
-    @post = Post.find(params[:id])
+    @post = @board.posts.find(params[:id])
     
     respond_to do |format|
       format.html # index.html.erb
@@ -18,7 +15,7 @@ class PostsController < ApplicationController
   end
     
   def new
-    @post = Post.new
+    @post = @board.posts.build
     
     respond_to do |format|
       format.html # index.html.erb
@@ -27,16 +24,15 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
+    @post = @board.posts.find(params[:id])    
   end
     
   def create
-    @post = Post.new(params[:post])
-    @post.save
+    @post = @board.posts.build(params[:post])
     
     respond_to do |format|
       if @post.save
-        format.html { redirect_to(@post, :notice => 'Post was successfully created.') }
+        format.html { redirect_to(board_post_path(@board, @post), :notice => 'Post was successfully created.') }
         format.xml  { render :xml => @post, :status => :created, :location => @post }
       else
         format.html { render :action => "new" }
@@ -46,12 +42,11 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:id])
-    @post.update_attributes(params[:post])
+    @post = @board.posts.find(params[:id])
     
     respond_to do |format|
       if @post.update_attributes(params[:post])
-        format.html { redirect_to(@post, :notice => 'Post was successfully updated.') }
+        format.html { redirect_to(board_post_path(@board, @post), :notice => 'Post was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -61,12 +56,17 @@ class PostsController < ApplicationController
   end
   
   def destroy
-    @post = Post.find(params[:id])
+    @post = @board.posts.find(params[:id])
     @post.destroy
     
     respond_to do |format|
-      format.html { redirect_to(posts_url) }
+      format.html { redirect_to(board_posts_path(@board, @post)) }
       format.xml  { head :ok }
     end
+  end
+  
+  protected
+  def find_board
+    @board = Board.find(params[:board_id])
   end
 end
