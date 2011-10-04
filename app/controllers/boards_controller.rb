@@ -11,7 +11,7 @@ class BoardsController < ApplicationController
   def show
     @board = Board.find(params[:id])
     
-    @posts = Post.all
+    @posts = @board.posts
     
     respond_to do |format|
       format.html 
