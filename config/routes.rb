@@ -14,8 +14,10 @@ ForumDemo::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resources :boards do
-    resources :posts
+  namespace :admin do
+    resources :boards do
+      resources :posts
+    end
   end
 
   # Sample resource route with options:
