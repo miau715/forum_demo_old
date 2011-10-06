@@ -33,4 +33,5 @@ group :test do
 end
 
 gem "devise"
-gem  "will_paginate"
+gem "will_paginate"
+gem "paperclip"
